@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'NotoSansRegular';
+  src: url('/src/assets/fonts/NotoSansRegular.eot');
+  src: url('/src/assets/fonts/NotoSansRegular.eot') format('embedded-opentype'),
+    url('/src/assets/fonts/NotoSansRegular.woff2') format('woff2'),
+    url('/src/assets/fonts/NotoSansRegular.woff') format('woff'),
+    url('/src/assets/fonts/NotoSansRegular.ttf') format('truetype'),
+    url('/src/assets/fonts/NotoSansRegular.svg#NotoSansRegular') format('svg');
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'NotoSansRegular';
+  app-route {
+    display: block;
+    position: relative;
+    z-index: 2000;
+  }
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.w-70 {
+  width: 70% !important;
+}
+
+.w-80 {
+  width: 80% !important;
+}
+
+.w-90 {
+  width: 90% !important;
+}

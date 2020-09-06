@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #0f069f;
+  --primary-shade: rgb(15 6 159 / 40%);
+  --solid-white: #FFFFFF;
+  --solid-black: #000000;
+  --transparent-white: #ffffffa1;
+  --faded-white-color: #333333;
+  --secondary-color: #333333;
+  --border-color: #f3f3f3;
+  --form-border-color: #cacaca;
+  --card-background-color: #f1f1f1;
+  --card-border-color: #0000002e;
+  --card-text-color: #6d7777;
+}
+
+$primary-color: #0f069f;
+$solid-white: #FFFFFF;
+$solid-black: #000000;
+$transparent-white:#ffffffa1;
+$faded-white-color: #333333;
+$secondary-color: #333333;
+$border-color: #f3f3f3;
+$alert-primary: (color: #004085,
+  backgroundColor: #cce5ff,
+  borderColor: #b8daff);
+$alert-secondary: (color: #383d41,
+  backgroundColor: #e2e3e5,
+  borderColor: #d6d8db);
+$alert-success: (color: #155724,
+  backgroundColor: #d4edda,
+  borderColor: #c3e6cb);
+$alert-danger: (color: #721c24,
+  backgroundColor: #f8d7da,
+  borderColor: #f5c6cb);
+$alert-warning: (color: #856404,
+  backgroundColor: #fff3cd,
+  borderColor: #ffeeba);
+$alert-info: (color: #0c5460,
+  backgroundColor: #d1ecf1,
+  borderColor: #bee5eb);
+$alert-light: (color: #818182,
+  backgroundColor: #fefefe,
+  borderColor: #fdfdfe);
+$alert-dark: (color: #1b1e21,
+  backgroundColor: #d6d8d9,
+  borderColor: #c6c8ca);

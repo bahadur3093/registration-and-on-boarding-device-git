@@ -1,0 +1,82 @@
+.loader-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0px;
+  bottom: 0;
+  z-index: 1003;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255 255 255);
+  z-index: 2000;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+  .loader {
+    border: 16px solid $border-color;
+    border-top: 16px solid $primary-color;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    left: calc(50% - 60px);
+    top: calc(50% - 60px);
+  }
+  &.isLoaded {
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+  }
+}
+
+.snack-primary {
+  background-color: map-get($alert-primary, backgroundColor);
+  color: map-get($alert-primary, color);
+  border-color: map-get($alert-primary, borderColor);
+}
+.snack-secondary {
+  background-color: map-get($alert-secondary, backgroundColor);
+  color: map-get($alert-secondary, color);
+  border-color: map-get($alert-secondary, borderColor);
+}
+.snack-success {
+  background-color: map-get($alert-success, backgroundColor);
+  color: map-get($alert-success, color);
+  border-color: map-get($alert-success, borderColor);
+}
+.snack-danger {
+  background-color: map-get($alert-danger, backgroundColor);
+  color: map-get($alert-danger, color);
+  border-color: map-get($alert-danger, borderColor);
+}
+.snack-warning {
+  background-color: map-get($alert-warning, backgroundColor);
+  color: map-get($alert-warning, color);
+  border-color: map-get($alert-warning, borderColor);
+}
+.snack-info {
+  background-color: map-get($alert-info, backgroundColor);
+  color: map-get($alert-info, color);
+  border-color: map-get($alert-info, borderColor);
+}
+.snack-light {
+  background-color: map-get($alert-light, backgroundColor);
+  color: map-get($alert-light, color);
+  border-color: map-get($alert-light, borderColor);
+}
+.snack-dark {
+  background-color: map-get($alert-dark, backgroundColor);
+  color: map-get($alert-dark, color);
+  border-color: map-get($alert-dark, borderColor);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

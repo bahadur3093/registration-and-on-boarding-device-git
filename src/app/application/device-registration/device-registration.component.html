@@ -1,0 +1,423 @@
+<div class="content-wrapper">
+  <div class="container-fluid px-0">
+    <div class="row mx-0">
+      <div class="col-md-2 px-0 side-nav-wrapper">
+        <app-sidenav></app-sidenav>
+      </div>
+      <div class="col-md-10">
+        <div class="content-container">
+          <div class="heading">
+            <h1>Register</h1>
+          </div>
+          <div class="form-wrapper">
+            <div class="card">
+              <div class="registration-section"
+                [ngClass]="{'registered': deviceData.status, 'notRegistered': !deviceData.status}">
+                <div class="registration-container">
+                  <ng-container *ngIf="deviceData.status else notRegistered">
+                    <div class="reg-message-wrap pb-4 mb-4">
+                      <div class="container-fluid">
+                        <div class="row w-70 ml-auto mr-auto">
+                          <div class="col-3">
+                            <div class="reg-message-wrap-icon">
+                              <fa-icon [icon]="['fas', 'cloud-download-alt']" class="registration-status-icon mb-3">
+                              </fa-icon>
+                            </div>
+                          </div>
+                          <div class="col-9">
+                            <div class="reg-message-wrap-info">
+                              <div class="reg-message-tab mb-2">
+                                <b class="reg-message">The device is already registered <u data-toggle="modal"
+                                    data-target="#registerNewDeviceRef">click here</u> to register a new device.</b>
+                              </div>
+                              <div class="reg-device-data" *ngIf="deviceData.status">
+                                <div class="reg-device-data-row reg-device-data-name">
+                                  <label for="name">Device Name</label>
+                                  <p class="name">{{deviceData.device_data.name}}</p>
+                                </div>
+                                <div class="reg-device-data-row reg-device-data-id">
+                                  <label for="id">Device ID</label>
+                                  <p class="id">{{deviceData.device_data.id}}</p>
+                                </div>
+                                <div class="reg-device-data-row reg-device-data-type">
+                                  <label for="type">Device Type</label>
+                                  <p class="type">{{deviceData.device_data.type}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-template #notRegistered>
+                    <div class="reg-message-wrap pb-4 mb-4">
+                      <div class="container-fluid">
+                        <div class="row w-60 ml-auto mr-auto">
+                          <div class="col-12">
+                            <div class="reg-message-wrap-icon">
+                              <fa-icon [icon]="['fas', 'exclamation-circle']" class="registration-status-icon mb-3">
+                              </fa-icon>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="reg-message-wrap-info">
+                              <div class="reg-message-tab mb-2 text-center">
+                                <b class="reg-message">The device is not registered </b>
+                                <u data-toggle="modal"
+                                data-target="#registerNewDeviceRef"><i>click here </i></u>
+                                <b>to register a new device.</b>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-container *ngIf="deviceData.status">
+                    <div class="reg-child-devices-wrapper">
+                      <div class="reg-child-devices-header">
+                        <div class="count">
+                          <ng-container *ngIf="deviceData.device_data.children.length > 0; else withChildDevices">
+                            <b>
+                              Child Devices (<span>{{deviceData.device_data.children.length}}</span>)
+                            </b>
+                          </ng-container>
+                          <ng-template #withChildDevices>
+                            <b>
+                              Child Devices (<span>0</span>)
+                            </b>
+                          </ng-template>
+                        </div>
+                        <div class="ml-auto button-wrapper d-flex justify-content-end p-0">
+                          <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addNewDeviceTemplate">New Child
+                            Device</button>
+                        </div>
+                      </div>
+                      <div class="reg-child-device-list mt-4">
+                        <table class="table table-bordered">
+                          <thead class="thead-amnimo">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Device Type</th>
+                              <th scope="col">Device Name</th>
+                              <th scope="col">Device Parent</th>
+                              <th scope="col">Device ID</th>
+                            </tr>
+                          </thead>
+                          <ng-container *ngIf="(deviceData.device_data.children | keyvalue)?.length > 0">
+                            <tbody>
+                              <ng-container *ngFor="let child of deviceData.device_data.children; let i = index">
+                                <tr>
+                                  <th scope="row">{{i + 1}}</th>
+                                  <td>{{child.type}}</td>
+                                  <td>{{child.name}}</td>
+                                  <td>{{child.parent_name}}</td>
+                                  <td>{{child.id}}</td>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </ng-container>
+                          <ng-container *ngIf="(deviceData.device_data.children | keyvalue)?.length === 0">
+                            <tbody>
+                              <tr>
+                                <th scope="row" colspan="5">No child devices available</th>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                        </table>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <ng-template #addNewDeviceTemplate>
+  <form [formGroup]="addNewChildDevice" class="material-form add-child-device">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-9">
+          <mat-form-field class="material-form-group w-100" appearance="outline">
+            <mat-label>Select Device Type</mat-label>
+            <mat-select formControlName="childDeviceType" (selectionChange)="onThingsTypeSelect()"
+              [(ngModel)]="selectedDeviceType">
+              <mat-option value="" disabled>Select a device type</mat-option>
+              <ng-container *ngFor="let options of deviceMetaData.deviceTypes | keyvalue; let i = index">
+                <mat-option [value]="options.key">{{options.key}}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+          <div class="attributes-title d-flex justify-content-between align-items-center">
+            <span class="btn btn-primary add-attributes w-100" (click)="addAttributes()">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              Add Attribute
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="attributes-wrapper" [@slideInOut]="slideState">
+      <div class="attributes-title d-flex justify-content-between align-items-center">
+        <span>Attributes</span>
+      </div>
+      <div class="attributes-container">
+        <div class="container-fluid">
+          <div class="row">
+            <ng-container *ngFor="let attr of deviceAttributes">
+              <div class="col-4">
+                <mat-form-field class="material-form-group w-100" appearance="outline">
+                  <mat-label>{{attr.key}}</mat-label>
+                  <input matInput [value]="attr.defaultValue">
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="material-form-group w-100" appearance="outline">
+        <mat-label>Parent Device</mat-label>
+        <input matInput value="Sushi" readonly formControlName="childParentDevice">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="material-form-group w-100" appearance="outline">
+        <mat-label>Device Name</mat-label>
+        <input matInput value="Sushi" formControlName="childDeviceName">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="material-form-group w-100" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput value="Sushi" formControlName="childDescription" matAutosizeMaxRows="150"
+          matAutosizeMaxRows="150"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-group button-wrapper d-flex justify-content-end">
+      <mat-dialog-actions align="end">
+        <button type="button" class="btn btn-primary" matDialogClose>Submit</button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</ng-template> -->
+<div class="modal" tabindex="-1" role="dialog" id="addNewDeviceTemplate" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header mb-0">
+        <h2 class="modal-title">New child device</h2>
+        <button #closeChildDeviceButton type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addNewChildDevice" class="material-form add-child-device" (ngSubmit)="onChildSubmit()">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-9">
+                <mat-form-field class="material-form-group w-100" appearance="outline">
+                  <mat-label>Select Device Type</mat-label>
+                  <mat-select formControlName="deviceType" (selectionChange)="onChildThingsTypeSelect($event)">
+                    <mat-option value="" disabled>Select a device type</mat-option>
+                    <ng-container *ngFor="let options of deviceMetaData.deviceTypes | keyvalue; let i = index">
+                      <mat-option [value]="options.key">{{options.key}}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                  <mat-error *ngIf="submitted && field?.deviceType?.errors?.required">Enter device type</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-3">
+                <div class="attributes-title d-flex justify-content-between align-items-center">
+                  <span class="btn btn-primary add-attributes w-100" (click)="addChildAttributes()">
+                    Add Attribute
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="attributes-wrapper" [@slideInOut]="slideState">
+            <div class="attributes-title d-flex justify-content-between align-items-center">
+              <span>Attributes ({{deviceAttributes.length}})</span>
+            </div>
+            <div class="attributes-container">
+              <div class="container-fluid">
+                <div class="row">
+                  <ng-container *ngFor="let childAttr of getChildAttributes.controls; let i = index">
+                    <div class="col-4" [formGroup]="childAttr">
+                      <ng-container *ngIf="(i + 1) > childindexCount">
+                        <div class="remove-attributes" (click)="removeChildAttributes(i)">
+                          <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                        </div>
+                        <mat-form-field class="material-form-group attribute-key w-100" appearance="outline">
+                          <mat-label>Attribute Key</mat-label>
+                          <input matInput placeholder="Attribute Key" autocomplete="off" formControlName="key">
+                          <mat-error *ngIf="childSubmitted && childAttr.invalid">Field is mandatory and should not have space.
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-container>
+                      <mat-form-field class="material-form-group w-100" appearance="outline"
+                        [ngClass]="{'attribute-value': (i + 1) > childindexCount}">
+                        <mat-label>
+                          <ng-container *ngIf="(i + 1) > childindexCount; else defaultAttribute">
+                            Attribute Value
+                          </ng-container>
+                          <ng-template #defaultAttribute>
+                            {{childAttr.value.key}}
+                          </ng-template>
+                        </mat-label>
+                        <input matInput placeholder="Attribute Value" autocomplete="off" formControlName="defaultValue">
+                        <mat-error *ngIf="childSubmitted && childAttr.invalid">Field is mandatory and should not have space.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="clearfix w-100" *ngIf="(i + 1) === childindexCount"></div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="material-form-group w-100" appearance="outline">
+              <mat-label>Parent Device</mat-label>
+              <input matInput formControlName="parent_name" disabled readonly [(value)]="parentDeviceType">
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="material-form-group w-100" appearance="outline">
+              <mat-label>Device Name</mat-label>
+              <input matInput formControlName="name">
+              <mat-error *ngIf="childSubmitted && childField?.name?.errors?.required">Enter device name</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="material-form-group w-100" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-group button-wrapper d-flex justify-content-end">
+            <button type="button" class="btn btn-primary mr-2" (click)="onReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="registerNewDeviceRef" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header mb-0">
+        <h2 class="modal-title">Add new device</h2>
+        <button #closeDeviceButton type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="registerNewDeviceForm" class="material-form register-device" (ngSubmit)="onDeviceSubmit()">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-9">
+                <mat-form-field class="material-form-group w-100" appearance="outline">
+                  <mat-label>Select Device Type</mat-label>
+                  <mat-select formControlName="deviceType" (selectionChange)="onThingsTypeSelect($event)"
+                    [(ngModel)]="selectedDeviceType">
+                    <mat-option value="" disabled>Select a device type</mat-option>
+                    <ng-container *ngFor="let options of deviceMetaData.deviceTypes | keyvalue; let i = index">
+                      <mat-option [value]="options.key">{{options.key}}</mat-option>
+                    </ng-container>
+                  </mat-select>
+                  <mat-error *ngIf="submitted && field?.deviceType?.errors?.required">Enter device type</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-3">
+                <div class="attributes-title d-flex justify-content-between align-items-center">
+                  <span class="btn btn-primary add-attributes w-100" (click)="addAttributes()">
+                    Add Attribute
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="attributes-wrapper" [@slideInOut]="slideState">
+            <div class="attributes-title d-flex justify-content-between align-items-center">
+              <span>Attributes ({{deviceAttributes.length}})</span>
+            </div>
+            <div class="attributes-container">
+              <div class="container-fluid">
+                <div class="row">
+                  <ng-container *ngFor="let attr of getAttributes.controls; let i = index">
+                    <div class="col-4" [formGroup]="attr">
+                      <ng-container *ngIf="(i + 1) > indexCount">
+                        <div class="remove-attributes" (click)="removeAttributes(i)">
+                          <fa-icon [icon]="['fas', 'times-circle']"></fa-icon>
+                        </div>
+                        <mat-form-field class="material-form-group attribute-key w-100" appearance="outline">
+                          <mat-label>Attribute Key</mat-label>
+                          <input matInput placeholder="Attribute Key" autocomplete="off" formControlName="key">
+                          <mat-error *ngIf="submitted && attr.invalid">Field is mandatory and should not have space.
+                          </mat-error>
+                        </mat-form-field>
+                      </ng-container>
+                      <mat-form-field class="material-form-group w-100" appearance="outline"
+                        [ngClass]="{'attribute-value': (i + 1) > indexCount}">
+                        <mat-label>
+                          <ng-container *ngIf="(i + 1) > indexCount; else defaultAttribute">
+                            Attribute Value
+                          </ng-container>
+                          <ng-template #defaultAttribute>
+                            {{attr.value.key}}
+                          </ng-template>
+                        </mat-label>
+                        <input matInput placeholder="Attribute Value" autocomplete="off" formControlName="defaultValue">
+                        <mat-error *ngIf="submitted && attr.invalid">Field is mandatory and should not have space.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="clearfix w-100" *ngIf="(i + 1) === indexCount"></div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="material-form-group w-100" appearance="outline">
+              <mat-label>Device Name</mat-label>
+              <input matInput value="Sushi" formControlName="name">
+              <mat-error *ngIf="submitted && field?.name?.errors?.required">Enter device name</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field class="material-form-group w-100" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-group button-wrapper d-flex justify-content-end">
+            <button type="button" class="btn btn-primary mr-2" (click)="onReset()" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <pre>{{deviceData | json}}</pre>
+    </div>
+    <div class="col">
+      <!-- <pre>{{attributes | json}}</pre> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="content-wrapper">
+  <div class="container-fluid px-0">
+    <div class="row mx-0">
+      <div class="col-md-2 px-0 side-nav-wrapper">
+        <app-sidenav></app-sidenav>
+      </div>
+      <div class="col-md-10">
+        <div class="content-container">
+          <div class="heading">
+            <h1>Video Stream</h1>
+          </div>
+          <div class="form-wrapper" *ngIf="streamData">
+            <div class="card">
+              <div class="registration-section"
+                [ngClass]="{'registered': streamData.status, 'notRegistered': !streamData.status}">
+                <div class="registration-container">
+                  <ng-container *ngIf="streamData.status">
+                    <div class="reg-child-devices-wrapper">
+                      <div class="reg-child-devices-header">
+                        <div class="ml-auto button-wrapper d-flex justify-content-end p-0">
+                          <button type="button" class="btn btn-primary mr-2" (click)="startStream()" *ngIf="!isStartStream">Start
+                            Stream</button>
+                          <button type="button" class="btn btn-danger mr-2" (click)="stopStream()" *ngIf="isStartStream">Stop
+                            Stream</button>
+                          <button type="button" class="btn btn-warning"(click)="getStreams()">Refresh</button>
+                        </div>
+                      </div>
+                      <div class="reg-child-device-list mt-4">
+                        <table class="table table-bordered">
+                          <thead class="thead-amnimo">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Device Name</th>
+                              <th scope="col">RTSP Stream URL</th>
+                              <th scope="col">Username</th>
+                              <th scope="col">Channel Name</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                          <ng-container *ngIf="(streamData.device_data.children | keyvalue)?.length > 0">
+                            <tbody>
+                              <ng-container *ngFor="let child of streamData.device_data.children; let i = index">
+                                <tr>
+                                  <th scope="row">{{i + 1}}</th>
+                                  <td>{{child.name === '' ? 'NA' : child.name}}</td>
+                                  <td>{{child.attributes.rtspURL === '' ? 'NA' : child.attributes.rtspURL}}</td>
+                                  <td>{{child.parent_name === '' ? 'NA' : child.parent_name}}</td>
+                                  <td>{{child.attributes.streamName === '' ? 'NA' : child.attributes.streamName}}</td>
+                                  <td>{{child.attributes.status === '' ? 'NA' : child.attributes.status}}</td>
+                                </tr>
+                              </ng-container>
+                            </tbody>
+                          </ng-container>
+                          <ng-container *ngIf="(streamData.device_data.children | keyvalue)?.length === 0">
+                            <tbody>
+                              <tr>
+                                <th scope="row" colspan="6">No child devices available</th>
+                              </tr>
+                            </tbody>
+                          </ng-container>
+                        </table>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <pre>{{streamData | json}}</pre>
+    </div>
+  </div>
+</div>

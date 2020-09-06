@@ -1,0 +1,68 @@
+$solid-white: #FFFFFF;
+$transparent-white:#ffffffa1;
+$primary-color: #0f069f;
+$secondary-color: #333333;
+$faded-white-color: #333333;
+:host {
+  display: flex;
+  height: 100vh;
+  background-image: url(../../../assets/images/register-and-onboard-device-login-bg.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.signup-container {
+  align-self: center;
+  width: 76%;
+  margin: auto;
+  .logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    img {
+      width: 340px;
+    }
+    p {
+      color: $solid-white;
+      padding-left: 5%;
+    }
+  }
+  .signup {
+    width: 100%;
+    background-color: $transparent-white;
+    border-radius: 8px;
+    padding: 20px 20px 10px 20px;
+    color: $secondary-color;
+    h2 {
+      color: $secondary-color;
+      text-align: center;
+      font-size: 20px;
+    }
+    .custom-form {
+      margin: 0 auto;
+      ::ng-deep .mat-form-field .mat-form-field-wrapper .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+        color: $secondary-color !important;
+       }
+       ::ng-deep .mat-form-field .mat-form-field-wrapper  .mat-form-field-subscript-wrapper .mat-form-field-hint-wrapper .mat-hint {
+        color: $secondary-color !important;
+       }
+
+      .mat-form-field {
+        width: 50%;
+      }
+
+      .signup-btn {
+        background: $primary-color;
+        color: $solid-white;
+        margin: 20px 0px;
+      }
+    }
+    .copy-container {
+      text-align: center;
+      margin-top: 30px;
+      color: $faded-white-color;
+      font-size: 12px;
+    }
+  }
+}

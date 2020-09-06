@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'registration-and-on-boarding-device';
+  title = 'Amnimo';
+  router: string;
+  constructor(
+    private _router: Router
+    ) { }
+    hasRoute(route: string) {
+      return this._router.url.includes(route);
+    }
 }

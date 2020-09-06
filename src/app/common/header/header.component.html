@@ -1,0 +1,30 @@
+<header class="header">
+  <div class="logo-section">
+    <a [routerLink]="'/gateway'">
+      <img src="assets/images/amnimologo.png" alt="amnimo-logo" class="img-fluid">
+    </a>
+  </div>
+  <div class="header-container">
+    <ul class="nav-left">
+      <li class="app-title">
+        <span>Device Management Console (Edge)</span>
+      </li>
+    </ul>
+  </div>
+  <div class="user-dropdown dropdown ml-auto">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <img src="/assets/images/icon_member.svg" alt="Amnimo" class="img-fluid">
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <span class="dropdown-item email">
+        <fa-icon [icon]="['fas', 'user']"></fa-icon>
+        <span id="email">{{userEmail}}</span>
+      </span>
+      <span class="dropdown-item logout" (click)="logout()">
+        <fa-icon [icon]="['fas', 'power-off']"></fa-icon>
+        <span>Log out</span>
+      </span>
+    </div>
+  </div>
+</header>

@@ -17,6 +17,63 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "url",
+              "buffer",
+              "crypto-js/hmac-sha256",
+              "crypto-js/sha256",
+              "crypto-js/lib-typedarrays",
+              "crypto-js/enc-base64",
+              "buffer",
+              "js-cookie",
+              "isomorphic-unfetch",
+              "ulid",
+              "uuid",
+              "lodash/isEqual",
+              "lodash/isEmpty",
+              "lodash/get",
+              "@aws-crypto/sha256-js",
+              "@aws-sdk/util-utf8-node",
+              "@aws-sdk/util-utf8-browser",
+              "zen-observable",
+              "@aws-sdk/credential-provider-cognito-identity",
+              "@aws-sdk/s3-request-presigner",
+              "@aws-sdk/util-create-request",
+              "@aws-sdk/util-format-url",
+              "@aws-sdk/eventstream-marshaller",
+              "@aws-sdk/smithy-client",
+              "@aws-sdk/fetch-http-handler",
+              "@aws-sdk/protocol-http",
+              "zen-observable",
+              "@aws-sdk/querystring-builder",
+              "@aws-sdk/url-parser-node",
+              "@aws-sdk/middleware-user-agent",
+              "@aws-sdk/middleware-signing",
+              "@aws-sdk/middleware-retry",
+              "@aws-sdk/middleware-host-header",
+              "@aws-sdk/middleware-content-length",
+              "@aws-sdk/config-resolver",
+              "@aws-sdk/middleware-serde",
+              "@aws-sdk/middleware-ssec",
+              "@aws-sdk/middleware-location-constraint",
+              "@aws-sdk/middleware-apply-body-checksum",
+              "@aws-sdk/middleware-sdk-s3",
+              "@aws-sdk/util-buffer-from",
+              "@aws-sdk/querystring-parser",
+              "@aws-sdk/util-uri-escape",
+              "@aws-crypto/sha256-browser",
+              "@aws-sdk/middleware-expect-continue",
+              "@aws-sdk/middleware-bucket-endpoint",
+              "@aws-sdk/eventstream-serde-config-resolver",
+              "aws-sdk/xml-builder",
+              "@aws-sdk/url-parser-browser",
+              "@aws-sdk/md5-js",
+              "@aws-sdk/hash-blob-browser",
+              "@aws-sdk/eventstream-serde-browser",
+              "fast-xml-parser",
+              "@aws-sdk/xml-builder",
+              "@aws-sdk/credential-provider-cognito-identity"
+            ],
             "outputPath": "dist/registration-and-on-boarding-device",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -28,9 +85,16 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/scss/app.scss",
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -92,6 +156,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +188,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "registration-and-on-boarding-device"
+    }
+  },
+  "defaultProject": "registration-and-on-boarding-device",
+  "cli": {
+    "analytics": false
+  }
 }
